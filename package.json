@@ -1,0 +1,27 @@
+{
+  "name": "conhos-mcp",
+  "version": "0.0.1",
+  "description": "Development helper",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolserdav/conhos-mcp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kolserdav/conhos-mcp/issues"
+  },
+  "homepage": "https://github.com/kolserdav/conhos-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1"
+  }
+}
