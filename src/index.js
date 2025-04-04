@@ -28,7 +28,6 @@ const transports = {};
  * @type {RequestHandler}
  */
 const sseHandler = async (req, res) => {
-  console.log(1, req.headers);
   const transport = new SSEServerTransport('/messages', res);
   transports[transport.sessionId] = transport;
   res.on('close', () => {
