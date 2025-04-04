@@ -5,6 +5,7 @@
 import express from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import { z } from 'zod';
 
 /**
  * @typedef {(req: Request, res: Response) => Promise<void>} RequestHandler
@@ -14,6 +15,10 @@ const server = new McpServer({
   name: 'example-server',
   version: '1.0.0',
 });
+
+server.tool('greet', { name: z.string() }, async ({ name }) => ({
+  content: [{ type: 'text', text: `Hello ${name}` }],
+}));
 
 // ... set up server resources, tools, and prompts ...
 
@@ -43,7 +48,10 @@ app.get('/sse', sseHandler);
  */
 const messageHandler = async (req, res) => {
   /** @type {string} */
-  const sessionId = req.query.sessionId;
+  const sessionId = typeof req.query.sessionId === 'string' ? req.query.sessionId : '';
+  if (!sessionId) {
+    return res.status(400).send('Missing sessionId');
+  }
   const transport = transports[sessionId];
   if (transport) {
     await transport.handlePostMessage(req, res);
